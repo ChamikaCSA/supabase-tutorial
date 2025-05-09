@@ -7,9 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UserAvatar } from "./user-avatar"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { SignOutButton } from "@/components/sign-out-button"
+import { NavigationButton } from "@/components/navigation-button"
 
 export default async function UsersPage() {
   const supabase = await createClient();
@@ -43,9 +42,9 @@ export default async function UsersPage() {
             </CardDescription>
           </div>
           <div className="flex items-center gap-4">
-            <Button asChild variant="secondary">
-              <Link href="/account">Account Settings</Link>
-            </Button>
+            <NavigationButton href="/account">
+              Account Settings
+            </NavigationButton>
             <SignOutButton />
           </div>
         </CardHeader>
@@ -69,16 +68,6 @@ export default async function UsersPage() {
                     {user.username || "No username"}
                   </p>
                 </div>
-                {user.website && (
-                  <a
-                    href={user.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline"
-                  >
-                    Website
-                  </a>
-                )}
               </div>
             ))}
           </div>

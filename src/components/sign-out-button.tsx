@@ -31,7 +31,6 @@ export function SignOutButton() {
       variant="secondary"
       onClick={handleSignOut}
       disabled={signingOut}
-      className="cursor-pointer"
     >
       {signingOut ? (
         <>

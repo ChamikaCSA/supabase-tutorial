@@ -2,9 +2,8 @@ import AccountForm from './account-form'
 import { createClient } from '@/utils/supabase/server'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Toaster } from "@/components/ui/sonner"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { SignOutButton } from "@/components/sign-out-button"
+import { NavigationButton } from "@/components/navigation-button"
 
 export default async function Account() {
   const supabase = await createClient()
@@ -26,9 +25,9 @@ export default async function Account() {
             </CardDescription>
           </div>
           <div className="flex items-center gap-4">
-            <Button asChild variant="secondary">
-              <Link href="/users">Back to Users</Link>
-            </Button>
+            <NavigationButton href="/users">
+              Back to Users
+            </NavigationButton>
             <SignOutButton />
           </div>
         </CardHeader>

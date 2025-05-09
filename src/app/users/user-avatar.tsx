@@ -1,9 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { createClient } from '@/utils/supabase/client'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { toast } from "sonner"
+import { useAvatarUrl } from '@/hooks/use-avatar-url'
 
 interface UserAvatarProps {
   avatarUrl: string | null
@@ -12,34 +10,7 @@ interface UserAvatarProps {
 }
 
 export function UserAvatar({ avatarUrl, fullName, username }: UserAvatarProps) {
-  const supabase = createClient()
-  const [url, setUrl] = useState<string | null>(null)
-
-  useEffect(() => {
-    async function downloadImage(path: string) {
-      try {
-        const { data, error } = await supabase.storage.from('avatars').download(path)
-        if (error) {
-          throw error
-        }
-
-        const url = URL.createObjectURL(data)
-        setUrl(url)
-      } catch (error) {
-        toast.error("Error loading avatar")
-      }
-    }
-
-    if (avatarUrl) {
-      downloadImage(avatarUrl)
-    }
-
-    return () => {
-      if (url) {
-        URL.revokeObjectURL(url)
-      }
-    }
-  }, [avatarUrl, supabase])
+  const url = useAvatarUrl(avatarUrl)
 
   return (
     <Avatar className="h-12 w-12">
