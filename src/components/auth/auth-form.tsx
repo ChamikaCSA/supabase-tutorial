@@ -15,18 +15,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import Link from 'next/link'
 import { signInWithProvider } from '@/lib/auth'
-
-interface AuthFormProps {
-  type: 'login' | 'signup'
-  onSubmit: (formData: FormData) => Promise<void>
-  title: string
-  description: string
-  submitText: string
-  loadingText: string
-  linkText: string
-  linkHref: string
-  linkLabel: string
-}
+import { AuthFormProps, AuthFormValues } from '@/types'
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -50,7 +39,7 @@ export function AuthForm({
 }: AuthFormProps) {
   const [loading, setLoading] = useState(false)
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<AuthFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -58,7 +47,7 @@ export function AuthForm({
     },
   })
 
-  async function handleSubmit(values: z.infer<typeof formSchema>) {
+  async function handleSubmit(values: AuthFormValues) {
     try {
       setLoading(true)
       const formData = new FormData()

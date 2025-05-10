@@ -7,18 +7,14 @@ import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 import { useAvatarUrl } from '@/hooks/use-avatar-url'
+import { AvatarUploadProps } from '@/types'
 
 export default function AvatarUpload({
   uid,
   url,
   size,
   onUpload,
-}: {
-  uid: string | null
-  url: string | null
-  size: number
-  onUpload: (url: string) => void
-}) {
+}: AvatarUploadProps) {
   const supabase = createClient()
   const avatarUrl = useAvatarUrl(url)
   const [uploading, setUploading] = useState(false)

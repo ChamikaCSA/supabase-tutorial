@@ -6,18 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { UserAvatar } from "../../components/users/user-avatar"
-import { SignOutButton } from "@/components/sign-out-button"
-import { NavigationButton } from "@/components/navigation-button"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-
-interface Profile {
-  id: string;
-  full_name: string | null;
-  username: string | null;
-  avatar_url: string | null;
-}
+import { UserAvatar } from "../../../components/users/user-avatar";
+import { Button } from "@/components/ui/button";
+import { Settings } from "lucide-react";
+import Link from "next/link";
+import { User } from "@/types";
 
 export default async function UsersPage() {
   const supabase = await createClient();
@@ -51,15 +44,16 @@ export default async function UsersPage() {
             </CardDescription>
           </div>
           <div className="flex items-center gap-4">
-            <NavigationButton href="/account">
-              Account Settings
-            </NavigationButton>
-            <SignOutButton />
+            <Link href="/account">
+              <Button variant="ghost" size="icon">
+                <Settings />
+              </Button>
+            </Link>
           </div>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {(users as Profile[])?.map((user) => (
+            {(users as User[])?.map((user) => (
               <div
                 key={user.id}
                 className="flex items-center justify-between p-4 rounded-lg border bg-card"
@@ -80,9 +74,7 @@ export default async function UsersPage() {
                   </div>
                 </div>
                 <Link href={`/chat/${user.id}`}>
-                  <Button variant="outline">
-                    Chat
-                  </Button>
+                  <Button variant="outline">Chat</Button>
                 </Link>
               </div>
             ))}

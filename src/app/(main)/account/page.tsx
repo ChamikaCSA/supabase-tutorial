@@ -1,16 +1,24 @@
-import AccountForm from '../../components/account/account-form'
-import { createClient } from '@/utils/supabase/server'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Toaster } from "@/components/ui/sonner"
-import { SignOutButton } from "@/components/sign-out-button"
-import { NavigationButton } from "@/components/navigation-button"
+import AccountForm from "../../../components/account/account-form";
+import { createClient } from "@/utils/supabase/server";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Toaster } from "@/components/ui/sonner";
+import { ArrowLeft } from "lucide-react";
+import { User } from "@/types";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Account() {
-  const supabase = await createClient()
+  const supabase = await createClient();
 
   const {
     data: { user },
-  } = await supabase.auth.getUser()
+  } = await supabase.auth.getUser();
 
   return (
     <div className="w-full max-w-4xl p-8 space-y-6">
@@ -25,10 +33,11 @@ export default async function Account() {
             </CardDescription>
           </div>
           <div className="flex items-center gap-4">
-            <NavigationButton href="/users">
-              Back to Users
-            </NavigationButton>
-            <SignOutButton />
+            <Link href="/users">
+              <Button variant="ghost" size="icon">
+                <ArrowLeft />
+              </Button>
+            </Link>
           </div>
         </CardHeader>
         <CardContent>
@@ -38,5 +47,5 @@ export default async function Account() {
 
       <Toaster />
     </div>
-  )
+  );
 }

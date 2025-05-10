@@ -2,12 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useAvatarUrl } from '@/hooks/use-avatar-url'
-
-interface UserAvatarProps {
-  avatarUrl: string | null
-  fullName: string | null
-  username: string | null
-}
+import { UserAvatarProps } from '@/types'
 
 export function UserAvatar({ avatarUrl, fullName, username }: UserAvatarProps) {
   const url = useAvatarUrl(avatarUrl)

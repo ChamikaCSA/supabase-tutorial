@@ -12,6 +12,7 @@ import * as z from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
+import { ProfileFormValues } from '@/types'
 
 const formSchema = z.object({
   fullname: z.string().optional(),
@@ -19,14 +20,12 @@ const formSchema = z.object({
   website: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
 })
 
-type FormValues = z.infer<typeof formSchema>
-
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient()
   const [loading, setLoading] = useState(true)
   const [avatar_url, setAvatarUrl] = useState<string | null>(null)
 
-  const form = useForm<FormValues>({
+  const form = useForm<ProfileFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullname: "",
@@ -68,7 +67,7 @@ export default function AccountForm({ user }: { user: User | null }) {
     getProfile()
   }, [user, getProfile])
 
-  async function updateProfile(values: FormValues) {
+  async function updateProfile(values: ProfileFormValues) {
     try {
       setLoading(true)
 
