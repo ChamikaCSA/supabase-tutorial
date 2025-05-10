@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator"
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import Link from 'next/link'
-import { signInWithProvider } from '@/app/(auth)/actions'
+import { signInWithProvider } from '@/lib/auth'
 
 interface AuthFormProps {
   type: 'login' | 'signup'

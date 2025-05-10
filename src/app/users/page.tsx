@@ -6,9 +6,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { UserAvatar } from "./user-avatar"
+import { UserAvatar } from "../../components/users/user-avatar"
 import { SignOutButton } from "@/components/sign-out-button"
 import { NavigationButton } from "@/components/navigation-button"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
+interface Profile {
+  id: string;
+  full_name: string | null;
+  username: string | null;
+  avatar_url: string | null;
+}
 
 export default async function UsersPage() {
   const supabase = await createClient();
@@ -50,24 +59,31 @@ export default async function UsersPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {users?.map((user) => (
+            {(users as Profile[])?.map((user) => (
               <div
                 key={user.id}
-                className="flex items-center space-x-4 p-4 rounded-lg border bg-card"
+                className="flex items-center justify-between p-4 rounded-lg border bg-card"
               >
-                <UserAvatar
-                  avatarUrl={user.avatar_url}
-                  fullName={user.full_name}
-                  username={user.username}
-                />
-                <div className="flex-1 space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    {user.full_name || "Anonymous"}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {user.username || "No username"}
-                  </p>
+                <div className="flex items-center space-x-4">
+                  <UserAvatar
+                    avatarUrl={user.avatar_url}
+                    fullName={user.full_name}
+                    username={user.username}
+                  />
+                  <div className="flex-1 space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      {user.full_name || "Anonymous"}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {user.username || "No username"}
+                    </p>
+                  </div>
                 </div>
+                <Link href={`/chat/${user.id}`}>
+                  <Button variant="outline">
+                    Chat
+                  </Button>
+                </Link>
               </div>
             ))}
           </div>

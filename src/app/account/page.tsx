@@ -1,4 +1,4 @@
-import AccountForm from './account-form'
+import AccountForm from '../../components/account/account-form'
 import { createClient } from '@/utils/supabase/server'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Toaster } from "@/components/ui/sonner"
