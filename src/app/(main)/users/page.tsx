@@ -15,6 +15,7 @@ import { User } from "@/types";
 export default async function UsersPage() {
   const supabase = await createClient();
 
+  const { data: { user: currentUser } } = await supabase.auth.getUser();
   const { data: users, error } = await supabase.from("profiles").select("*");
 
   if (error) {
@@ -73,9 +74,11 @@ export default async function UsersPage() {
                     </p>
                   </div>
                 </div>
-                <Link href={`/chat/${user.id}`}>
-                  <Button variant="outline">Chat</Button>
-                </Link>
+                {user.id !== currentUser?.id && (
+                  <Link href={`/chat/${user.id}`}>
+                    <Button variant="outline">Chat</Button>
+                  </Link>
+                )}
               </div>
             ))}
           </div>

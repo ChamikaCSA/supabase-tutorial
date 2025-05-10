@@ -15,3 +15,14 @@ export interface ChatInputProps {
   onSend: (message: string) => Promise<void>;
   disabled?: boolean;
 }
+
+export type PresenceStatus = "online" | "offline" | "away";
+
+export interface PresenceIndicatorProps {
+  userId: string;
+  className?: string;
+}
+
+export interface PresencePayload {
+  status: PresenceStatus;
+}

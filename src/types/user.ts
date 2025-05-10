@@ -12,9 +12,3 @@ export interface UserAvatarProps {
   fullName: string | null;
   username: string | null;
 }
-
-export interface ProfileFormValues {
-  fullname?: string;
-  username?: string;
-  website?: string;
-}

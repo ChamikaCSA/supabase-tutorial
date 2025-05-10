@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { ArrowLeft } from "lucide-react";
-import { User } from "@/types";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

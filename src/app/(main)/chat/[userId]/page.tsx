@@ -18,6 +18,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { PresenceIndicator } from "@/components/chat/presence-indicator";
 
 export default function ChatPage({
   params,
@@ -55,6 +56,11 @@ export default function ChatPage({
       } = await supabase.auth.getUser();
       if (!user) {
         router.push("/login");
+        return;
+      }
+
+      if (user.id === resolvedParams.userId) {
+        router.push("/users");
         return;
       }
 
@@ -161,9 +167,17 @@ export default function ChatPage({
                 fullName={otherUser.full_name}
                 username={otherUser.username}
               />
-              <CardTitle className="text-xl font-semibold">
-                {otherUser.full_name}
-              </CardTitle>
+              <div className="flex flex-col">
+                <CardTitle className="text-lg font-semibold">
+                  {otherUser.full_name}
+                </CardTitle>
+                <div className="flex items-center gap-2">
+                  <PresenceIndicator userId={otherUser.id} />
+                  <span className="text-sm text-muted-foreground">
+                    {otherUser.username}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </CardHeader>

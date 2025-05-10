@@ -67,6 +67,10 @@ export async function signInWithProvider(provider: 'google' | 'github') {
 export async function logout() {
   const supabase = await createClient()
 
+  await supabase.functions.invoke('handle-user-presence', {
+    body: { action: 'offline' },
+  })
+
   const { error } = await supabase.auth.signOut()
 
   if (error) {

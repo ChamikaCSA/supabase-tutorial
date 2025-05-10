@@ -1,5 +1,5 @@
 export interface AuthFormProps {
-  type: 'login' | 'signup';
+  type: "login" | "signup";
   onSubmit: (formData: FormData) => Promise<void>;
   title: string;
   description: string;
